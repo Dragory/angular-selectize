@@ -59,18 +59,12 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
 
       }
 
+      function setOptions(options) {
+        selectize.clearOptions();
 
-      function addSelectizeOptions(value, prev){
-        if(!config.create){
-          return;
-        }
-        if(angular.isArray(value)){
-          angular.forEach(value, function(val){
-            selectize.addOption(val);
-          });
-        }else{
-          selectize.addOption(value);
-        }
+        angular.forEach(options, function(opt) {
+          selectize.addOption(opt);
+        });
       }
 
       function toggle(disabled){
@@ -102,7 +96,7 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
 
 
       scope.$watchCollection('ngModel', updateSelectizeValue);
-      scope.$watchCollection('options', addSelectizeOptions);
+      scope.$watchCollection('options', setOptions);
       scope.$watch('ngDisabled', toggle);
 
     }
